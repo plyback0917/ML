@@ -1,19 +1,22 @@
-
-import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+import seaborn as sns
+from scipy import stats
+from matplotlib import pyplot as plt
 
-# Generate sample data
-x = np.linspace(0, 10, 100)
-y = np.sin(x)
+man_height = stats.norm.rvs(loc=170, scale=10, size=500, random_state=1)
+woman_height = stats.norm.rvs(loc=150, scale=10, size=500, random_state=1)
 
-# Create a simple line plot
-plt.figure(figsize=(8, 5))
-plt.plot(x, y, label="Sine Wave", color="blue")
-plt.xlabel("X-axis")
-plt.ylabel("Y-axis")
-plt.title("Simple Sine Wave Graph")
-plt.legend()
-plt.grid()
+X = np.concatenate([man_height, woman_height])
+Y = ["man"] * len(man_height) + ["woman"] * len(woman_height)
 
-# Show the plot
+df = pd.DataFrame(list(zip(X,Y)), columns = ["X", "Y"])
+fig = sns.displot(data = df, x="X", hue="Y", kind="kde")
+fig.set_axis_labels("cm","count")
 plt.show()
+
+statistic, pvalue = stats.ttest_ind(man_height, woman_height, equal_var=True)
+print("statistics:", statistic)
+print("pvalue:", pvalue)
+print("*:", pvalue<0.05)
+print("**:",pvalue<0.001)
