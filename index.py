@@ -19,13 +19,6 @@ def scrape_sp500_metrics():
         'Breadth_200DMA': 62.5        # % above 200-day MA
     }
     
-    # Example of real scraping (uncomment and adjust URL/selector for actual use)
-    # url = "https://www.multpl.com/shiller-pe"  # Example site
-    # response = requests.get(url)
-    # soup = BeautifulSoup(response.text, 'html.parser')
-    # cape = float(soup.find(id="current_value").text)  # Hypothetical selector
-    # metrics['Shiller_CAPE'] = cape
-    
     return metrics
 
 # Synthetic historical data for training (simplified example)
